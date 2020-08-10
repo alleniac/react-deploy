@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo pre_build phase started...
+      - npm i
+  build:
+    commands:
+      - echo build phase started...
+      - npm run build
+  post_build:
+    commands:
+      - echo post_build phase started...
+      - aws s3 cp --recursive ./build s3://react-deploy-source-code/
+
+artifacts:
+  files:
+    - "**/*"
+  base-directory: build
